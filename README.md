@@ -1,4 +1,8 @@
-# Monitoring-soil-moisture-value-in-Thing-speak-cloud
+```
+NAME:RATHEESH KUMAR B R
+REG.NO:212223110040
+```
+# EX:05 Monitoring soil moisture value in Thing speak cloud
 # Uploading soil moisture sensor data in Thing Speak cloud
 
 # AIM:
@@ -84,8 +88,171 @@ Prototype and build IoT systems without setting up servers or developing web sof
 ![image](https://github.com/user-attachments/assets/5beaf86c-0d5d-4b99-9c22-bb0351f487ab)
 
 # PROGRAM:
+```
+#include <WiFi.h>
+#include "ThingSpeak.h" // always include thingspeak header file after other header files and custom macros
+#define Soil_Moisture 02
+char ssid[] = "OPPO A9";   // your network SSID (name) 
+char pass[] = "karthik21";   // your network password
+int keyIndex = 0;            // your network key Index number (needed only for WEP)
+WiFiClient  client;
+
+unsigned long myChannelNumber = 2742111;
+const int ChannelField = 1; 
+const char * myWriteAPIKey = "9MSJS5TUD6HIRBWT";
+
+void setup() {
+  Serial.begin(115200);  //Initialize serial
+  pinMode(Soil_Moisture, INPUT);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for Leonardo native USB port only
+  }
+  
+  WiFi.mode(WIFI_STA);   
+  ThingSpeak.begin(client);  // Initialize ThingSpeak
+}
+
+void loop()
+{
+ if (WiFi.status() != WL_CONNECTED)
+  {
+    Serial.print("Attempting to connect to SSID: ");
+    Serial.println(ssid);
+    while (WiFi.status() != WL_CONNECTED)
+    {
+      WiFi.begin(ssid, pass);
+      Serial.print(".");
+      delay(5000);
+    }
+    Serial.println("\nConnected.");
+  }
+
+ /* Soil MoistureSensor */
+  int Soil_Value = digitalRead(Soil_Moisture);
+  Serial.println(Soil_Value);
+  int x = ThingSpeak.writeField(myChannelNumber, ChannelField, Soil_Value, myWriteAPIKey);
+  if(x == 200)
+{
+    Serial.println("Channel update successful.");
+  }
+  else
+{
+    Serial.println("Problem updating channel. HTTP error code " + String(x));
+  }
+   delay(20000); // Wait 20 seconds to update the channel again
+}
+```
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 # CIRCUIT DIAGRAM:
+![387245868-1ad5f5b2-0163-4d73-947d-c3e034337cc2](https://github.com/user-attachments/assets/d371a8c0-fed4-4513-94a8-6c1e993f4e6c)
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 # OUTPUT:
+![image](https://github.com/user-attachments/assets/1661d060-f81b-466f-98d8-4b1b64301d3c)
+#
+#
+#
+#
 # RESULT:
 Thus the soil moisture values are updated in the Thing speak cloud using ESP32 controller.
 
